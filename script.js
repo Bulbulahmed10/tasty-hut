@@ -1,25 +1,21 @@
-
-const loadData = async() => {
-    const url = "https://www.themealdb.com/api/json/v1/1/search.php?s=chicken"
-    try {
-        const res = await fetch(url)
-        const data = await res.json()
-        displayData(data.meals)
-    } catch (error) {
-        console.log(error);
-    }
-
-}
-
-loadData()
+const loadData = async (searchFoodName) => {
+  const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchFoodName}`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    displayData(data.meals);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const displayData = (meals) => {
-    const foodContainer = document.getElementById("food-container")
-    meals.forEach(meal => {
-        const div = document.createElement("div")
-        console.log(meal);
-        div.classList.add("item-card")
-        div.innerHTML = `
+  const foodContainer = document.getElementById("food-container");
+  foodContainer.innerHTML = "";
+  meals.forEach((meal) => {
+    const div = document.createElement("div");
+    div.classList.add("item-card");
+    div.innerHTML = `
         <div class="card card-side bg-base-100 shadow-xl h-[200px]">
             <figure class="w-[50%]">
               <img
@@ -35,15 +31,42 @@ const displayData = (meals) => {
               <p class="mt-2 h-[54%] overflow-hidden">
                 ${meal.strInstructions}
               </p>
-              <button class="mt-4 text-yellow-400 capitalize underline">
+              <label for="my-modal-3" id="meal-details" onclick="mealDetails(${meal.idMeal})" class="mt-4 text-yellow-400 capitalize underline cursor-pointer">
                 view details
-              </button>
+              </label>
             </div>
           </div>
-        
-        
-        `
+        `;
+    foodContainer.appendChild(div);
+  });
+};
 
-        foodContainer.appendChild(div)
-    });
-}
+document.getElementById("search-btn").addEventListener("click", () => {
+  const searchInput = document.getElementById("search-input");
+  loadData(searchInput.value);
+  searchInput.value = "";
+});
+
+const mealDetails = async (idMeal) => {
+  const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    displayMealDetails(data.meals[0]);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const displayMealDetails = (meal) => {
+  console.log(meal);
+  document.getElementById("meal-name").innerText = meal.strMeal;
+  document.getElementById("meal-img").src = meal.strMealThumb;
+  document.getElementById("meal-category").innerText = meal.strCategory;
+  document.getElementById("meal-area-name").innerText = meal.strArea;
+  document.getElementById("meal-instructions").innerText = meal.strInstructions;
+  document.getElementById("meal-youtube-link").href = meal.strYoutube;
+  document.getElementById("meal-youtube-link").innerText = meal.strYoutube;
+};
+
+loadData("chicken");

@@ -47,11 +47,13 @@
           any palate.
         </p>
         <input
+          id="search-input"
           class="mt-8 px-4 py-[10px] w-[500px] text-md font-bold rounded-md border-none outline-none"
           type="text"
           placeholder="Search any food"
         />
         <button
+          id="search-btn"
           class="bg-[#FFC107] px-8 py-2 font-bold capitalize text-lg rounded-r-md absolute mt-[292px] ml-[381px]"
         >
           search
@@ -66,6 +68,50 @@
         class="grid grid-cols-3 w-full max-w-[1440px] mx-auto mt-14 gap-8"
         id="food-container"
       ></div>
+      <!-- The button to open modal -->
+      <div id="model-body">
+        <input type="checkbox" id="my-modal-3" class="modal-toggle" />
+    <div class="modal">
+      <div class="modal-box relative w-[70%] max-w-4xl">
+        <label
+          for="my-modal-3"
+          class="btn btn-sm btn-circle absolute right-2 top-2"
+          >✕</label
+        >
+        <h3 id="meal-name" class="text-lg font-bold">
+        </h3>
+        <img id="meal-img"
+          class="w-full h-[400px] object-cover mx-auto mt-6 rounded-md"
+          src=""
+          alt=""
+        />
+        <div class="mt-4">
+          <p class="font-bold text-lg">
+            Category: <span id="meal-category" class="font-medium text-lg">Chicken</span>
+          </p>
+          <p class="font-bold text-lg my-2">
+            Area: <span id="meal-area-name" class="font-medium text-lg">Japanese</span>
+          </p>
+          <p class="font-bold text-lg">
+            Instructions:
+            <span id="meal-instructions" class="font-medium text-lg"
+              ></span
+            >
+          </p>
+          <p class="font-bold text-lg my-2">
+            Youtube:
+            <a id="meal-youtube-link"
+              href=""
+              target="_blank"
+              class="font-medium text-lg text-blue-500"
+              ></a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+      </div>
+      
     </main>
     <section class="mt-[200px]"></section>
     <!-- tailwindcss cdn link -->
