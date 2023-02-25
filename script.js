@@ -19,34 +19,7 @@ const displayData = (meals) => {
     showAllBtn.style.display = "block";
     showAllBtn.addEventListener("click", () => {
       foodContainer.innerHTML = "";
-
-      meals.forEach((meal) => {
-        const div = document.createElement("div");
-        div.classList.add("item-card");
-        div.innerHTML = `
-             <div class="card card-side bg-base-100 shadow-xl h-[200px]">
-                 <figure class="w-[50%]">
-                   <img
-                     class="h-full object-cover"
-                     src=${meal.strMealThumb}
-                     alt="Movie"
-                   />
-                 </figure>
-                 <div class="w-[50%] p-2 flex flex-col items-start">
-                   <h4 class="capitalize font-bold mt-2">
-                     ${meal.strMeal}
-                   </h4>
-                   <p class="mt-2 h-[54%] overflow-hidden">
-                     ${meal.strInstructions}
-                   </p>
-                   <label for="my-modal-3" id="meal-details" onclick="mealDetails(${meal.idMeal})" class="mt-4 text-yellow-400 capitalize underline cursor-pointer">
-                     view details
-                   </label>
-                 </div>
-               </div>
-             `;
-        foodContainer.appendChild(div);
-      });
+      mealDisplayFunc(meals);
       showAllBtn.style.display = "none";
     });
   } else {
@@ -54,35 +27,40 @@ const displayData = (meals) => {
   }
   foodContainer.innerHTML = "";
 
-  firstTen.forEach((meal) => {
+  mealDisplayFunc(firstTen);
+};
+
+function mealDisplayFunc(meals) {
+  const foodContainer = document.getElementById("food-container");
+
+  meals.forEach((meal) => {
     const div = document.createElement("div");
     div.classList.add("item-card");
-
     div.innerHTML = `
-        <div class="card card-side bg-base-100 shadow-xl h-[200px]">
-            <figure class="w-[50%]">
-              <img
-                class="h-full object-cover"
-                src=${meal.strMealThumb}
-                alt="Movie"
-              />
-            </figure>
-            <div class="w-[50%] p-2 flex flex-col items-start">
-              <h4 class="capitalize font-bold mt-2">
-                ${meal.strMeal}
-              </h4>
-              <p class="mt-2 h-[54%] overflow-hidden">
-                ${meal.strInstructions}
-              </p>
-              <label for="my-modal-3" id="meal-details" onclick="mealDetails(${meal.idMeal})" class="mt-4 text-yellow-400 capitalize underline cursor-pointer">
-                view details
-              </label>
-            </div>
-          </div>
-        `;
+         <div class="card card-side bg-base-100 shadow-xl h-[200px]">
+             <figure class="w-[50%]">
+               <img
+                 class="h-full object-cover"
+                 src=${meal.strMealThumb}
+                 alt="Movie"
+               />
+             </figure>
+             <div class="w-[50%] p-2 flex flex-col items-start">
+               <h4 class="capitalize font-bold mt-2">
+                 ${meal.strMeal}
+               </h4>
+               <p class="mt-2 h-[54%] overflow-hidden">
+                 ${meal.strInstructions}
+               </p>
+               <label for="my-modal-3" id="meal-details" onclick="mealDetails(${meal.idMeal})" class="mt-4 text-yellow-400 capitalize underline cursor-pointer">
+                 view details
+               </label>
+             </div>
+           </div>
+         `;
     foodContainer.appendChild(div);
   });
-};
+}
 
 //! meal search functionality
 document.getElementById("search-btn").addEventListener("click", () => {
@@ -116,11 +94,10 @@ const displayMealDetails = (meal) => {
 
 loadData("chicken");
 
-
-
+//! loading animations
 window.addEventListener("load", () => {
-  const loader = document.getElementById("loader-section")
+  const loader = document.getElementById("loader-section");
   setTimeout(function () {
-    loader.style.display = "none"
-  }, 1000)
-})
+    loader.style.display = "none";
+  }, 1000);
+});
