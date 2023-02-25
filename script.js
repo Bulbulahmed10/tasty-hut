@@ -63,10 +63,20 @@ function mealDisplayFunc(meals) {
 }
 
 //! meal search functionality
+const searchInput = document.getElementById("search-input");
+
 document.getElementById("search-btn").addEventListener("click", () => {
-  const searchInput = document.getElementById("search-input");
   loadData(searchInput.value);
   searchInput.value = "";
+});
+
+
+searchInput.addEventListener("keypress", (e) => {
+
+  if (e.key === "Enter") {
+    loadData(searchInput.value);
+    searchInput.value = "";
+  }
 });
 
 //! meal details functionality
